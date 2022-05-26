@@ -28,7 +28,7 @@ int main() {
         cin >> valor2;
 
         double soma = (quant*valor) + (quant2*valor2);
-        cout << "Valor a pagar: " << soma << endl;
+        cout << "VALOR A PAGAR: R$ " << soma << endl;
            
     }
     
