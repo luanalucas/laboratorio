@@ -193,7 +193,7 @@ void cadastrarEntrada(){
         cadastrar(aluno, matricula, curso, email_aluno, orientador, frequencia, avaliadores, instituicao, email_avaliador, titulo_banca, resumo, horario, local, 0);
 }
 
-BANCA atualizar(){
+/*BANCA atualizar(){
     //PASSAR OPCAO DE ESCOLHER QUAIS INFORMACOES QUER ATUALIZAR
 
     BANCA * aux= inicio;
@@ -220,9 +220,13 @@ BANCA atualizar(){
             printf("Não foi encontrado! \n");
         }
     }
-}
+}*/
 
 int main(){  
+
+    BANCA * file;
+    //file = fopen ("arquivo.txt");
+    fprintf(file,"oi");
 
     int menu;
     printf("\n---------------------------MENU | CRUD---------------------------\n");
@@ -232,19 +236,14 @@ int main(){
     printf("\nPara atualizar uma banca, digite: 4");
     printf("\n*Obs.: Utilioze apenas o caractere que se refere ao comando desejado!");
     printf("\n------------------------------------------------------------------\n");
-
     scanf("%d", &menu);
 
     switch(menu){
-        //REMOV teste = remover();
         case 1: cadastrarEntrada(); break;
         case 2: imprimir(); break;
         case 3: cadastrarRemover(); break;
-        case 4: printf(); break;
+        //case 4: printf(); break;
     }
- 
-    //printf("\n--------------------Cadatro removido eh:----------------\n");
-    //printf("%s", teste.aluno, teste.matricula, teste.curso);
-   
+
     return 0;
 }
