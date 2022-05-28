@@ -1,30 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct remover_cadastro{
-    //dados aluno
-    char *aluno;
-    int matricula;
-    char *curso;
-    char *email_aluno;
-    //orientador nome
-    char *orientador;
-    //frequencia
-    double frequencia;
-    //dados avaliadores
-    char *avaliadores;
-    char *instituicao;
-    char *email_avaliador;
-    //dados da banca
-    char *titulo_banca;
-    char *resumo;
-    double horario;
-    char *local;
-    //dados aluno
-    struct Banca * prox;
-    struct Banca * ant;
-}REMOV;
-
 typedef struct Banca{
     //dados aluno
     char *aluno;
@@ -51,6 +27,7 @@ typedef struct Banca{
 
 BANCA * inicio = NULL;
 BANCA * fim = NULL;
+
 int tam = 0;
 
 void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, float frequencia, char *avaliadores,
@@ -124,104 +101,43 @@ void imprimir(){
     }
 }
 
-'''void cadastrarRemover(char *aluno, int matricula, char *curso, int pos, REMOV* remover()){  
-       
+void cadastrarRemover(){  
+        char * aluno = malloc(sizeof(aluno));
+        int matricula;
         printf("""\n------------------------REMOVER---------------------------------\n""");  
-
         printf("Digite o nome do aluno:");
         scanf("%s", aluno);
-        printf("%s", aluno);
         printf("\nDigite a matricula do aluno:");
-        scanf("%d", &matricula);
-        printf("Digite o curso do aluno: \n");
-        scanf("%s", curso);
+        scanf("%d", &matricula);      
+}
 
-        cadastrar(aluno, matricula, curso, 0);
-}'''
-
-
-//falta ajeitar funcao remover
-REMOV remover(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, float frequencia, char *avaliadores,
-char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, float horario, char *local, int pos){
+BANCA remover(char *aluno, int matricula){
    
-    REMOV cadastrado;
-    if(pos >= 0 && pos < tam){
-        if(pos == 0){ //apagar no inicio
-       
-            REMOV * lixo = inicio;
-           
-            inicio = inicio->prox;
-            inicio->ant = NULL;
-           
-            cadastrado.aluno = lixo->aluno;
-            cadastrado.matricula = lixo->matricula;
-            cadastrado.curso = lixo->curso;
-            cadastrado.email_aluno = lixo->email_aluno;
-            cadastrado.orientador = lixo->orientador;
-            cadastrado.frequencia = lixo->frequencia;
-            cadastrado.avaliadores = lixo->avaliadores;
-            cadastrado.titulo_banca = lixo->titulo_banca;
-            cadastrado.resumo = lixo->resumo;
-            cadastrado.horario = lixo->horario;
-            cadastrado.local = lixo->local;
-           
-           
-            if(tam == 1){
-                inicio = NULL;
-                fim = NULL;
-            }
-           
-        }else if(pos == tam-1){// apagar no fim
+    BANCA * aux= inicio;
 
-            REMOV *lixo = fim;
-
-            fim = fim->ant;
-            fim->ant->prox = NULL;
-           
-            cadastrado.aluno = lixo->aluno;
-            cadastrado.matricula = lixo->matricula;
-            cadastrado.curso = lixo->curso;
-            cadastrado.email_aluno = lixo->email_aluno;
-            cadastrado.orientador = lixo->orientador;
-            cadastrado.frequencia = lixo->frequencia;
-            cadastrado.avaliadores = lixo->avaliadores;
-            cadastrado.titulo_banca = lixo->titulo_banca;
-            cadastrado.resumo = lixo->resumo;
-            cadastrado.horario = lixo->horario;
-            cadastrado.local = lixo->local;
-
-           
-
-        }else { //meio            
-            REMOV * aux = inicio;
-            REMOV * lixo = aux;
-            for(int i = 0; i < pos; i++){
-                aux = aux->prox;      
-            }            
+    if(tam == 1 && inicio->aluno == aluno && inicio->matricula == matricula){
+        inicio = NULL;
+        fim = NULL; 
+    }else{
+        while(aux != fim && aux->aluno != aluno && aux->matricula != matricula){
+            aux = aux->prox;
+        }
+        if(aux->aluno == aluno && aux->matricula == matricula){
             aux->ant->prox = aux->prox;
             aux->prox->ant = aux->ant;
-           
-            cadastrado.aluno = lixo->aluno;
-            cadastrado.matricula = lixo->matricula;
-            cadastrado.curso = lixo->curso;
-            cadastrado.email_aluno = lixo->email_aluno;
-            cadastrado.orientador = lixo->orientador;
-            cadastrado.frequencia = lixo->frequencia;
-            cadastrado.avaliadores = lixo->avaliadores;
-            cadastrado.titulo_banca = lixo->titulo_banca;
-            cadastrado.resumo = lixo->resumo;
-            cadastrado.horario = lixo->horario;
-            cadastrado.local = lixo->local;
-           
-        free(lixo);
-
-        tam--;
+            if(inicio->aluno == aluno && inicio->matricula == matricula){
+                inicio = inicio->prox;
+            }
+            if(fim->aluno == aluno && fim->matricula == matricula){
+                fim = fim->prox;
+            }
+    free(aux);
+    tam--;
+        }else{
+            printf("Não foi encontrado! \n");
         }
-       
-    }else{
-        printf("Banca invalida! :/ \n");
     }
-   
+    cadastrarRemover(aluno, matricula);
 }
 
 void cadastrarEntrada(){
@@ -277,14 +193,43 @@ void cadastrarEntrada(){
         cadastrar(aluno, matricula, curso, email_aluno, orientador, frequencia, avaliadores, instituicao, email_avaliador, titulo_banca, resumo, horario, local, 0);
 }
 
+BANCA atualizar(){
+    //PASSAR OPCAO DE ESCOLHER QUAIS INFORMACOES QUER ATUALIZAR
+
+    BANCA * aux= inicio;
+
+    if(tam == 1 && inicio->aluno == aluno && inicio->matricula == matricula){
+        inicio = NULL;
+        fim = NULL; 
+    }else{
+        while(aux != fim && aux->aluno != aluno && aux->matricula != matricula){
+            aux = aux->prox;
+        }
+        if(aux->aluno == aluno && aux->matricula == matricula){
+            aux->ant->prox = aux->prox;
+            aux->prox->ant = aux->ant;
+            if(inicio->aluno == aluno && inicio->matricula == matricula){
+                inicio = inicio->prox;
+            }
+            if(fim->aluno == aluno && fim->matricula == matricula){
+                fim = fim->prox;
+            }
+    free(aux);
+    tam--;
+        }else{
+            printf("Não foi encontrado! \n");
+        }
+    }
+}
+
 int main(){  
 
     int menu;
     printf("\n---------------------------MENU | CRUD---------------------------\n");
     printf("\nPara cadastrar uma banca, digite: 1"); //funcao que possa continuar cadastrando loop, no caso retornar menu
     printf("\nPara exibir as bancas cadastradas, digite: 2");
-    printf("\nPara atualizar uma banca, digite: 3");
-    printf("\nPara remover uma banca cadastrada, digite: 4\n");
+    printf("\nPara remover uma banca cadastrada, digite: 3\n");
+    printf("\nPara atualizar uma banca, digite: 4");
     printf("\n*Obs.: Utilioze apenas o caractere que se refere ao comando desejado!");
     printf("\n------------------------------------------------------------------\n");
 
@@ -294,8 +239,8 @@ int main(){
         //REMOV teste = remover();
         case 1: cadastrarEntrada(); break;
         case 2: imprimir(); break;
-        case 3: remover(); break;
-        //case 4: printf(); break;
+        case 3: cadastrarRemover(); break;
+        case 4: printf(); break;
     }
  
     //printf("\n--------------------Cadatro removido eh:----------------\n");
