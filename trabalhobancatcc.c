@@ -162,7 +162,7 @@ void cadastrarEntrada(){
        
         printf("""\n------------------------CADASTRAR---------------------------------\n""");  
 
-        printf("Digite o nome do aluno:");
+        printf("Digite o nome do aluno: ");
         scanf("%s", aluno);
         printf("\nDigite a matricula do aluno:");
         scanf("%d", &matricula);
@@ -208,7 +208,7 @@ void imprimir(){
     }
 }
 
-BANCA remover(){ //funcionando a parte de solicitar
+BANCA remover(){ //nao ta apagando
    
     BANCA * aux= inicio;
 
@@ -217,10 +217,10 @@ BANCA remover(){ //funcionando a parte de solicitar
 
     printf("""\n------------------------REMOVER---------------------------------\n""");  
 
-        printf("Digite o nome do aluno:");
+        printf("Digite o nome do aluno: ");
         scanf("%s", aluno);
         printf("%s", aluno);
-        printf("\nDigite a matricula do aluno:");
+        printf("\nDigite a matricula do aluno: ");
         scanf("%d", &matricula);
 
     if(tam == 1 && inicio->aluno == aluno && inicio->matricula == matricula){
@@ -271,9 +271,9 @@ BANCA* atualizar(){
 
     printf("""\n------------------------ATUALIZAR---------------------------------\n""");  
 
-        printf("Digite a matricula do aluno:"); //PROCURAR POR matricula
+        printf("Digite a matricula do aluno: "); //PROCURAR POR matricula
         scanf("%d", &matricula);
-        printf("Qual alteracao deseja realizar?"); //variavel que quer mudar 
+        printf("Qual alteracao deseja realizar? "); //variavel que quer mudar 
         scanf("%s", alt);
 
     for(int i = 0; i < tam; i++) //ou* while(aux-> matricula != matricula){     
