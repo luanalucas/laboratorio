@@ -84,6 +84,8 @@ void carregarArquivo(file){
     //salvar na lista p sempre
     //funcao atualizar dados
 }
+
+
 void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, float frequencia, char *avaliadores,
 char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, float horario, char *local, int pos){
 
@@ -245,8 +247,9 @@ BANCA remover(){ //funcionando a parte de solicitar
     }
 }
 
-BANCA* buscar(){ 
-    BANCA *aux;
+BANCA* atualizar(){ 
+    BANCA *aux = inicio;
+    char *alt;
 
     char *aluno;
     int matricula;
@@ -270,13 +273,17 @@ BANCA* buscar(){
 
         printf("Digite a matricula do aluno:"); //PROCURAR POR matricula
         scanf("%d", &matricula);
-        printf("Qual alteracao deseja realizar?"); 
+        printf("Qual alteracao deseja realizar?"); //variavel que quer mudar 
         scanf("%s", alt);
 
     for(int i = 0; i < tam; i++){
         if(aux != NULL){
-            if(aux->matricula == alt){
+            if(aux->aluno == alt){
+                printf("Digite o nome: "); 
+                scanf("%s", alt);
+                aux->aluno = alt;
                 return aux;
+           
             }else{
                 return NULL;
             }
@@ -286,162 +293,6 @@ BANCA* buscar(){
     
 }
 
-int main(){  
-    
-    //------------------------------criando menu de opcoes CRUD---------------------------------------
-    int x = 1;
-    while(x==1){
-        int menu;
-        printf("\n---------------------------MENU | CRUD---------------------------\n");
-        printf("\nPara cadastrar uma banca, digite: 1"); //funcao que possa continuar cadastrando loop, no caso retornar menu
-        printf("\nPara exibir as bancas cadastradas, digite: 2");
-        printf("\nPara remover uma banca cadastrada, digite: 3");
-        printf("\nPara atualizar uma banca, digite: 4");
-        printf("\nPara encerrar o programa, digite: 5");
-        printf("\n------------------------------------------------------------------\n");
-        scanf("%d", &menu);
-        
-        switch(menu){
-            case 1: cadastrarEntrada(); break; //funcionando a parte de solicitar
-            case 2: imprimir(); break; 
-            case 3: remover(); break; //funcionando a parte de solicitar
-            case 4: atualizar(); break;
-            case 5: x = 0; break; 
-        }
-    }
-    salvar();
-
-    return 0;
-}
-
-void cadastrarEntrada(){
-   
-        char *aluno = malloc(sizeof(aluno));
-        int matricula;
-        char *curso = malloc(sizeof(curso));
-        char *email_aluno = malloc(sizeof(email_aluno));
-        //orientador nome
-        char *orientador = malloc(sizeof(orientador));
-        //frequencia
-        float frequencia;
-        //dados avaliadores
-        char *avaliadores = malloc(sizeof(avaliadores));
-        char *instituicao = malloc(sizeof(instituicao));
-        char *email_avaliador = malloc(sizeof(email_avaliador));
-        //dados da banca
-        char *titulo_banca = malloc(sizeof(titulo_banca));
-        char *resumo = malloc(sizeof(resumo));
-        float horario;
-        char *local = malloc(sizeof(local));
-       
-        printf("""\n------------------------CADASTRAR---------------------------------\n""");  
-
-        printf("Digite o nome do aluno:");
-        scanf("%s", aluno);
-        printf("\nDigite a matricula do aluno:");
-        scanf("%d", &matricula);
-        printf("\nDigite o curso do aluno: ");
-        scanf("%s", curso);
-        printf("\nDigite o e-mail do aluno: ");
-        scanf("%s", email_aluno);
-        printf("\nDigite o nome do orientador: ");
-        scanf("%s", orientador);
-        printf("\nDigite frequencia: ");
-        scanf("%f", &frequencia);
-        printf("\nDigite o nome dos avaliadores: ");
-        scanf("%s", avaliadores);
-        printf("\nDigite a instituicao: ");
-        scanf("%s", instituicao);
-        printf("\nDigite o e-mail para contato: ");
-        scanf("%s", email_avaliador);
-        printf("\nDigite o título da banca: ");
-        scanf("%s", titulo_banca);
-        printf("\nDigite o resumo: ");
-        scanf("%s", resumo);
-        printf("\nDigite o horario: ");
-        scanf("%f", &horario);
-        printf("\nDigite o local: ");
-        scanf("%s", local);
-
-        cadastrar(aluno, matricula, curso, email_aluno, orientador, frequencia, avaliadores, instituicao, email_avaliador, titulo_banca, resumo, horario, local, 0);
-}
-
-void imprimir(){
-    BANCA * aux = inicio;
-    for(int i = 0; i < tam; i++){
-        printf("""\n------------------------BANCAS CADASTRADAS---------------------------------\n""");        
-        printf("Título: %s\n", aux->titulo_banca);
-        printf("Resumo:  %s\n", aux->resumo);
-        printf("Avaliadores: %s\n", aux->avaliadores);
-        printf("Instituição: %s\n", aux->instituicao);
-        printf("E-mail para contato: %s\n", aux->email_avaliador);
-        printf("Horário: %f\n", aux->horario);
-        printf("Local: %s\n", aux->local);
-
-            aux = aux->prox;
-    }
-}
-
-BANCA remover(){ //funcionando a parte de solicitar
-   
-    BANCA * aux= inicio;
-
-    char * aluno = malloc(sizeof(aluno));
-    int matricula;
-
-    printf("""\n------------------------REMOVER---------------------------------\n""");  
-
-        printf("Digite o nome do aluno:");
-        scanf("%s", aluno);
-        printf("%s", aluno);
-        printf("\nDigite a matricula do aluno:");
-        scanf("%d", &matricula);
-
-    if(tam == 1 && inicio->aluno == aluno && inicio->matricula == matricula){
-        inicio = NULL;
-        fim = NULL; 
-    }else{
-        while(aux != fim && aux->aluno != aluno && aux->matricula != matricula){
-            aux = aux->prox;
-        }
-        if(aux->aluno == aluno && aux->matricula == matricula){
-            aux->ant->prox = aux->prox;
-            aux->prox->ant = aux->ant;
-            if(inicio->aluno == aluno && inicio->matricula == matricula){
-                inicio = inicio->prox;
-            }
-            if(fim->aluno == aluno && fim->matricula == matricula){
-                fim = fim->prox;
-            }
-    free(aux);
-    tam--;
-        }else{
-            printf("Não foi encontrado! \n");
-        }
-    }
-}
-
-/*BANCA atualizar(){ 
-   
-    BANCA * aux= inicio;
-
-    char * aluno = malloc(sizeof(aluno));
-    char * alt = inicio;
-    int matricula;
-
-    printf("""\n------------------------ATUALIZAR---------------------------------\n""");  
-
-        printf("Qual alteracao deseja realizar?"); //PROCURAR POR NOME
-        scanf("%s", alt);
-        printf("""\n------------------------BUSCAR NO SISTEMA---------------------------------\n"""); //PROCURAR POR NOME
-        printf("Digite o nome do aluno:"); //PROCURAR POR NOME
-        scanf("%s", aluno);
-        printf("\nDigite a matricula do aluno:");
-        scanf("%d", &matricula);
-
-    //Depois de encontrara acessar o no e alterar a informacao que o ususario quer, como? nao sei
-    
-}*/
 
 int main(){  
     
