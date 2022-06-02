@@ -276,21 +276,9 @@ BANCA* atualizar(){
         printf("Qual alteracao deseja realizar?"); //variavel que quer mudar 
         scanf("%s", alt);
 
-    for(int i = 0; i < tam; i++){
-        if(aux != NULL){
-            if(aux->aluno == alt){
-                printf("Digite o nome: "); 
-                scanf("%s", alt);
-                aux->aluno = alt;
-                return aux;
-           
-            }else{
-                return NULL;
-            }
+    for(int i = 0; i < tam; i++) //ou* while(aux-> matricula != matricula){     
             aux = aux->prox;
-        }
-    }
-    
+        } 
 }
 
 
