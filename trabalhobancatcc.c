@@ -208,43 +208,47 @@ void imprimir(){
     }
 }
 
-BANCA remover(){ //nao ta apagando
-   
-    BANCA * aux= inicio;
-
+BANCA removerEntrada(){
     char * aluno = malloc(sizeof(aluno));
     int matricula;
 
     printf("""\n------------------------REMOVER---------------------------------\n""");  
 
-        printf("Digite o nome do aluno: ");
-        scanf("%s", aluno);
-        printf("%s", aluno);
-        printf("\nDigite a matricula do aluno: ");
-        scanf("%d", &matricula);
+    printf("\nDigite a matricula do aluno: ");
+    scanf("%d", &matricula);
 
-    if(tam == 1 && inicio->aluno == aluno && inicio->matricula == matricula){
+    cadastrar(matricula);
+}
+
+BANCA remover(){ //nao ta apagando
+
+   if(tam == 1 && inicio->matricula == matricula){
+        NO *lixo = inicio;
         inicio = NULL;
-        fim = NULL; 
+        inicio = NULL;
+        free(lixo);
+        tam--;
     }else{
-        while(aux != fim && aux->aluno != aluno && aux->matricula != matricula){
+        NO * aux = inicio;
+        while(aux != fim && aux->matricula != matricula){
             aux = aux->prox;
         }
-        if(aux->aluno == aluno && aux->matricula == matricula){
+        if(aux->matricula == matricula){
             aux->ant->prox = aux->prox;
             aux->prox->ant = aux->ant;
-            if(inicio->aluno == aluno && inicio->matricula == matricula){
+            if(inicio->matricula == matricula){
                 inicio = inicio->prox;
             }
-            if(fim->aluno == aluno && fim->matricula == matricula){
+            if(fim->matricula == matricula){
                 fim = fim->prox;
             }
-    free(aux);
-    tam--;
+            free(aux);
+            tam--;
         }else{
             printf("Não foi encontrado! \n");
         }
-    }
+   }
+   removerEntrada();
 }
 
 BANCA* atualizar(){ 
