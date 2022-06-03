@@ -209,6 +209,7 @@ void imprimir(){
 }
 
 BANCA removerEntrada(){
+    
     char * aluno = malloc(sizeof(aluno));
     int matricula;
 
@@ -217,19 +218,14 @@ BANCA removerEntrada(){
     printf("\nDigite a matricula do aluno: ");
     scanf("%d", &matricula);
 
-    cadastrar(matricula);
-}
-
-BANCA remover(){ //nao ta apagando
-
    if(tam == 1 && inicio->matricula == matricula){
-        NO *lixo = inicio;
+        BANCA *lixo = inicio;
         inicio = NULL;
         inicio = NULL;
         free(lixo);
         tam--;
     }else{
-        NO * aux = inicio;
+        BANCA * aux = inicio;
         while(aux != fim && aux->matricula != matricula){
             aux = aux->prox;
         }
@@ -248,7 +244,6 @@ BANCA remover(){ //nao ta apagando
             printf("Não foi encontrado! \n");
         }
    }
-   removerEntrada();
 }
 
 BANCA* atualizar(){ 
@@ -277,12 +272,33 @@ BANCA* atualizar(){
 
         printf("Digite a matricula do aluno: "); //PROCURAR POR matricula
         scanf("%d", &matricula);
-        printf("Qual alteracao deseja realizar? "); //variavel que quer mudar 
-        scanf("%s", alt);
 
-    for(int i = 0; i < tam; i++) //ou* while(aux-> matricula != matricula){     
+    if(tam == 1 && inicio->matricula == matricula){
+        BANCA *lixo = inicio;
+        inicio = NULL;
+        inicio = NULL;
+        free(lixo);
+        tam--;
+    }else{
+        BANCA * aux = inicio;
+        while(aux != fim && aux->matricula != matricula){
             aux = aux->prox;
-        } 
+        }
+        if(aux->matricula == matricula){
+            aux->ant->prox = aux->prox;
+            aux->prox->ant = aux->ant;
+            if(inicio->matricula == matricula){
+                inicio = inicio->prox;
+            }
+            if(fim->matricula == matricula){
+                fim = fim->prox;
+            }
+            free(aux);
+            tam--;
+        }else{
+            printf("Não foi encontrado! \n");
+        }
+   }
 }
 
 
@@ -302,11 +318,11 @@ int main(){
         scanf("%d", &menu);
         
         switch(menu){
-            case 1: cadastrarEntrada(); break; //funcionando a parte de solicitar
-            case 2: imprimir(); break; 
-            case 3: remover(); break; //funcionando a parte de solicitar
+            case 1: cadastrarEntrada(); break; //funcionando 
+            case 2: imprimir(); break; //funcionando
+            case 3: remover(); break; //funcionando 
             case 4: atualizar(); break;
-            case 5: x = 0; break; 
+            case 5: x = 0; break; //funcionando
         }
     }
     salvar();
