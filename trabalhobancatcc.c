@@ -38,7 +38,7 @@ int tam = 0;
 
 void salvar(){
     BANCA * aux = inicio;
-    BANCA * file;
+    FILE * file;
     
     file = fopen ("arquivo.txt","w"); //abrindo arquivo
         if(file == NULL){
@@ -57,13 +57,13 @@ void salvar(){
         fprintf(file, "Curso: %s\n", aux->curso);
         fprintf(file, "Email do aluno: %s\n", aux->email_aluno);
         fprintf(file, "Orientador: %s\n", aux->orientador);
-        fprintf(file, "Frequencia: %s\n", aux->frequencia);
+        fprintf(file, "Frequencia: %lf\n", aux->frequencia);
         fprintf(file, "Avaliadores: %s\n", aux->avaliadores);
         fprintf(file, "Instituição: %s\n", aux->instituicao);
         fprintf(file, "E-mail para contato: %s\n", aux->email_avaliador);
         fprintf(file, "Título: %s\n", aux->titulo_banca);
         fprintf(file, "Resumo:  %s\n", aux->resumo);
-        fprintf(file, "Horário: %f\n", aux->horario);
+        fprintf(file, "Horário: %lf\n", aux->horario);
         fprintf(file, "Local: %s\n", aux->local);       
 
 
@@ -197,16 +197,22 @@ void cadastrarEntrada(){
 void imprimir(){
     BANCA * aux = inicio;
     for(int i = 0; i < tam; i++){
-        printf("""\n------------------------BANCAS CADASTRADAS---------------------------------\n""");        
-        printf("Título: %s\n", aux->titulo_banca);
-        printf("Resumo:  %s\n", aux->resumo);
+        printf("\n------------------------BANCAS CADASTRADAS---------------------------------\n");        
+        printf("Aluno: %s\n", aux->aluno);
+        printf("Matricula: %d\n", aux->matricula);
+        printf("Curso: %s\n", aux->curso);
+        printf("Email do aluno: %s\n", aux->email_aluno);
+        printf("Orientador: %s\n", aux->orientador);
+        printf("Frequencia: %lf\n", aux->frequencia);
         printf("Avaliadores: %s\n", aux->avaliadores);
         printf("Instituição: %s\n", aux->instituicao);
         printf("E-mail para contato: %s\n", aux->email_avaliador);
-        printf("Horário: %f\n", aux->horario);
-        printf("Local: %s\n", aux->local);
+        printf("Título: %s\n", aux->titulo_banca);
+        printf("Resumo:  %s\n", aux->resumo);
+        printf("Horário: %lf\n", aux->horario);
+        printf("Local: %s\n", aux->local); 
 
-            aux = aux->prox;
+        aux = aux->prox;
     }
 }
 
