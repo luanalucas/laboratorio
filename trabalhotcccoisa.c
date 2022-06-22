@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
- 
+
+
 typedef struct Banca{
     //dados aluno
     char *aluno;
@@ -35,19 +36,18 @@ BANCA * fim = NULL;
 
 int tam = 0;
 
-/*void salvar(){
+void salvar(){
     BANCA * aux = inicio;
-    BANCA * file;
-    
+    FILE * file;
+    char *arquivo =  malloc(sizeof(arquivo));
+    print("Digite o nome do arquivo: ");
+    scanf(arquivo);
     file = fopen ("arquivo.txt","w"); //abrindo arquivo
         if(file == NULL){
                 printf("Erro na abertura!\n");
                 system("pause");
                 exit(1);//aborta o programa
         }
-    //fseek(file, 2*sizeof(struct BANCA), SEEK_SET);
-    //rewind(file);
-    //fread(&c,sizeof(struct BANCA),1,file);
         
     for(int i = 0; i < tam; i++){ 
 
@@ -56,13 +56,13 @@ int tam = 0;
         fprintf(file, "Curso: %s\n", aux->curso);
         fprintf(file, "Email do aluno: %s\n", aux->email_aluno);
         fprintf(file, "Orientador: %s\n", aux->orientador);
-        fprintf(file, "Frequencia: %s\n", aux->frequencia);
+        fprintf(file, "Frequencia: %lf\n", aux->frequencia);
         fprintf(file, "Avaliadores: %s\n", aux->avaliadores);
         fprintf(file, "Instituição: %s\n", aux->instituicao);
         fprintf(file, "E-mail para contato: %s\n", aux->email_avaliador);
         fprintf(file, "Título: %s\n", aux->titulo_banca);
         fprintf(file, "Resumo:  %s\n", aux->resumo);
-        fprintf(file, "Horário: %f\n", aux->horario);
+        fprintf(file, "Horário: %lf\n", aux->horario);
         fprintf(file, "Local: %s\n", aux->local);       
 
 
@@ -73,22 +73,47 @@ int tam = 0;
     system("pause");
 }
 
-void carregarArquivo(file){
+void carregarArquivo(){
+    BANCA * aux = inicio;
+    FILE * file;
 
-    file = fopen ("arquivo.txt","rb"); //abrindo arquivo
+    file = fopen ("arquivo.txt","r"); //abrindo arquivo
         if(file == NULL){
                 printf("Erro na abertura!\n");
                 system("pause");
                 exit(1);//aborta o programa
         }
-    BANCA cad;
-    fread(&cad,sizeof(struct BANCA),1,file);
-    printf("%s\n%d\n%s\n%s\n%s\n%f\n%s\n%s\n%s\n%s\n%f\n%s\n", cad.aluno, cad.matricula, cad. curso, cad.curso, cad.email_aluno, cad.orientador, cad.frquencia, cad.avaliadores,
-    cad.institucao, cad.email_avaliador, cad.titulo_banca, cad.resumo, cad.horario, cad.local);  
-}*/
+    
+    char a[7];
+    char b[7];
+    char c[7];
+    char *d;
+    fread(aux->aluno, sizeof(BANCA), 1, file);
+    fread(a, sizeof(BANCA), 1, file);
+    aux->matricula = atoi(a);
+    fread(aux->curso, sizeof(BANCA), 1, file);
+    fread(aux->email_aluno, sizeof(BANCA), 1, file);
+    fread(aux->orientador, sizeof(BANCA), 1, file);
+    fread(b, sizeof(BANCA), 1, file);
+    aux->frequencia = strtod(b, &d);
+    fread(aux->avaliadores, sizeof(BANCA), 1, file);
+    fread(aux->instituicao, sizeof(BANCA), 1, file);
+    fread(aux->email_avaliador, sizeof(BANCA), 1, file);
+    fread(aux->titulo_banca, sizeof(BANCA), 1, file);
+    fread(c, sizeof(BANCA), 1, file);
+    aux->horario = strtod(c, &d);
+    fread(aux->local, sizeof(BANCA), 1, file);
+    
+    printf("%s/n, %d/n, %s/n, %s/n, %s/n, %s/n, %lf/n, %s/n, %s/n, %s/n, %s/n, %s/n, %lf/n, %s/n", aux->aluno, aux->matricula, aux->curso, aux->email_aluno, aux->orientador, aux->frequencia, aux->avaliadores,
+    aux->instituicao, aux->email_avaliador, aux->titulo_banca, aux->resumo, aux->horario, aux->local); 
 
-void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, float frequencia, char *avaliadores,
-char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, float horario, char *local, int pos){
+    fclose(file);
+    system("pause");
+
+}
+
+void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, double frequencia, char *avaliadores,
+char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, double horario, char *local, int pos){
 
     if(pos >= 0 && pos <= tam){
    
@@ -150,7 +175,7 @@ void cadastrarEntrada(){
         //orientador nome
         char *orientador = malloc(sizeof(orientador));
         //frequencia
-        float frequencia;
+        double frequencia;
         //dados avaliadores
         char *avaliadores = malloc(sizeof(avaliadores));
         char *instituicao = malloc(sizeof(instituicao));
@@ -158,7 +183,7 @@ void cadastrarEntrada(){
         //dados da banca
         char *titulo_banca = malloc(sizeof(titulo_banca));
         char *resumo = malloc(sizeof(resumo));
-        float horario;
+        double horario;
         char *local = malloc(sizeof(local));
        
         printf("""\n------------------------CADASTRAR---------------------------------\n""");  
@@ -191,12 +216,13 @@ void cadastrarEntrada(){
         scanf("%s", local);
 
         cadastrar(aluno, matricula, curso, email_aluno, orientador, frequencia, avaliadores, instituicao, email_avaliador, titulo_banca, resumo, horario, local, 0);
+        printf("Banca cadastrada com sucesso!");
 }
 
 void imprimir(){
     BANCA * aux = inicio;
     for(int i = 0; i < tam; i++){
-        printf("""\n------------------------BANCAS CADASTRADAS---------------------------------\n""");        
+        printf("\n------------------------BANCAS CADASTRADAS---------------------------------\n");        
         printf("Aluno: %s\n", aux->aluno);
         printf("Matricula: %d\n", aux->matricula);
         printf("Curso: %s\n", aux->curso);
@@ -211,16 +237,16 @@ void imprimir(){
         printf("Horário: %lf\n", aux->horario);
         printf("Local: %s\n", aux->local); 
 
-            aux = aux->prox;
+        aux = aux->prox;
     }
 }
 
-BANCA remover(){ //Segmentation fault
+void remover(){ //Segmentation fault BANCA *remover()
     
     char * aluno = malloc(sizeof(aluno));
     int matricula;
 
-    printf("""\n------------------------REMOVER---------------------------------\n""");  
+    printf("\n------------------------REMOVER---------------------------------\n");  
 
     printf("\nDigite a matricula do aluno: ");
     scanf("%d", &matricula);
@@ -236,47 +262,51 @@ BANCA remover(){ //Segmentation fault
         while(aux != fim && aux->matricula != matricula){
             aux = aux->prox;
         }
-        if(aux->matricula == matricula){
+
+        if(inicio->matricula == matricula){
+            inicio = inicio->prox;
+        }
+        else if(fim->matricula == matricula){
+            fim = fim->prox;
+        }
+        else if(aux->matricula == matricula){
             aux->ant->prox = aux->prox;
             aux->prox->ant = aux->ant;
-            if(inicio->matricula == matricula){
-                inicio = inicio->prox;
-            }
-            if(fim->matricula == matricula){
-                fim = fim->prox;
-            }
-            free(aux);
-            tam--;
-        }else{
-            printf("Não foi encontrado! \n");
         }
-   }
+        else{
+            printf("Não foi encontrado! \n");
+            return;
+        }
+        free(aux);
+        tam--;
+    }
+    printf("Banca removida com sucesso!");
 }
 
-BANCA* atualizar(){ //Segmentation fault
+void atualizar(){ //Segmentation fault
     BANCA *aux = inicio;
-
-    char *aluno;
-    int matricula;
+    
     int mat;
-    char *curso;
-    char *email_aluno;//@
+    int opcao;
+    char *aluno = malloc(sizeof(aluno));
+    int matricula;
+    char *curso = malloc(sizeof(curso));
+    char *email_aluno = malloc(sizeof(email_aluno));
     //orientador nome
-    char *orientador;
+    char *orientador = malloc(sizeof(orientador));
     //frequencia
     double frequencia;
     //dados avaliadores
-    char *avaliadores;
-    char *instituicao;
-    char *email_avaliador;
+    char *avaliadores = malloc(sizeof(avaliadores));
+    char *instituicao = malloc(sizeof(instituicao));
+    char *email_avaliador = malloc(sizeof(email_avaliador));
     //dados da banca
-    char *titulo_banca;
-    char *resumo;
+    char *titulo_banca = malloc(sizeof(titulo_banca));
+    char *resumo = malloc(sizeof(resumo));
     double horario;
-    char *local;
-    int opcao;
+    char *local = malloc(sizeof(local));
 
-    printf("""\n------------------------ATUALIZAR---------------------------------\n""");  
+    printf("\n------------------------ATUALIZAR---------------------------------\n");  
 
     printf("Digite a matricula do aluno: "); //PROCURAR POR matricula
     scanf("%d", &mat);
@@ -369,15 +399,15 @@ BANCA* atualizar(){ //Segmentation fault
                 aux->local = local; 
                 break;   
         }
+    printf("Banca atualizada com sucesso!");
 }
 
 int main(){  
-    
-    //------------------------------criando menu de opcoes CRUD---------------------------------------
+
     int x = 1;
     while(x==1){
         int menu;
-        printf("\n---------------------------MENU | CRUD---------------------------\n");
+        printf("\n--------------------------- MENU | CRUD ---------------------------\n");
         printf("\nPara cadastrar uma banca, digite: 1"); //funcao que possa continuar cadastrando loop, no caso retornar menu
         printf("\nPara exibir as bancas cadastradas, digite: 2");
         printf("\nPara remover uma banca cadastrada, digite: 3");
@@ -394,7 +424,8 @@ int main(){
             case 5: x = 0; break; //funcionando
         }
     }
-    //salvar();
+    salvar();
+    carregarArquivo();
 
     return 0;
 }
