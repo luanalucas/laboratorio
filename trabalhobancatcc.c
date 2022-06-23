@@ -144,7 +144,7 @@ char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, floa
 
 void cadastrarEntrada(){
    
-        char *aluno = malloc(sizeof(aluno));
+        char *aluno = malloc(sizeof(aluno)*50);
         int matricula;
         char *curso = malloc(sizeof(curso));
         char *email_aluno = malloc(sizeof(email_aluno));
@@ -165,7 +165,8 @@ void cadastrarEntrada(){
         printf("""\n------------------------CADASTRAR---------------------------------\n""");  
 
         printf("Digite o nome do aluno: ");
-        scanf("%s", aluno);
+        //scanf("%s", aluno);
+        fgets(aluno, 50, stdin);
         printf("\nDigite a matricula do aluno:");
         scanf("%d", &matricula);
         printf("\nDigite o curso do aluno: ");
@@ -389,7 +390,7 @@ int main(){
         printf("\nPara atualizar uma banca, digite: 4");
         printf("\nPara encerrar o programa, digite: 5");
         printf("\n------------------------------------------------------------------\n");
-        scanf("%d", &menu);
+        scanf("%d%*c", &menu);
         
         switch(menu){
             case 1: cadastrarEntrada(); break; //funcionando 
