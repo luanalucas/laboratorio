@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
- 
+
+
 typedef struct Banca{
     //dados aluno
     char *aluno;
@@ -30,7 +31,6 @@ typedef struct Banca{
     struct Banca * ant;
 }BANCA;
 
-
 BANCA * inicio = NULL;
 BANCA * fim = NULL;
 
@@ -39,6 +39,7 @@ int tam = 0;
 void salvar(){
     BANCA * aux = inicio;
     FILE * file;
+    char *arquivo =  malloc(sizeof(arquivo));
     
     file = fopen ("arquivo.txt","w"); //abrindo arquivo
         if(file == NULL){
@@ -46,9 +47,6 @@ void salvar(){
                 system("pause");
                 exit(1);//aborta o programa
         }
-    //fseek(file, 2*sizeof(struct BANCA), SEEK_SET);
-    //rewind(file);
-    //fread(&c,sizeof(struct BANCA),1,file);
         
     for(int i = 0; i < tam; i++){ 
 
@@ -74,22 +72,9 @@ void salvar(){
     system("pause");
 }
 
-/*void carregarArquivo(file){
-    file = fopen ("arquivo.txt","rb"); //abrindo arquivo
-        if(file == NULL){
-                printf("Erro na abertura!\n");
-                system("pause");
-                exit(1);//aborta o programa
-        }
-    BANCA cad;
-    fread(&cad,sizeof(struct BANCA),1,file);
-    printf("%s\n%d\n%s\n%s\n%s\n%f\n%s\n%s\n%s\n%s\n%f\n%s\n", cad.aluno, cad.matricula, cad. curso, cad.curso, cad.email_aluno, cad.orientador, cad.frquencia, cad.avaliadores,
-    cad.institucao, cad.email_avaliador, cad.titulo_banca, cad.resumo, cad.horario, cad.local);  
-}*/
 
-
-void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, float frequencia, char *avaliadores,
-char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, float horario, char *local, int pos){
+void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, double frequencia, char *avaliadores,
+char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, double horario, char *local, int pos){
 
     if(pos >= 0 && pos <= tam){
    
@@ -151,7 +136,7 @@ void cadastrarEntrada(){
         //orientador nome
         char *orientador = malloc(sizeof(orientador));
         //frequencia
-        float frequencia;
+        double frequencia;
         //dados avaliadores
         char *avaliadores = malloc(sizeof(avaliadores));
         char *instituicao = malloc(sizeof(instituicao));
@@ -159,13 +144,12 @@ void cadastrarEntrada(){
         //dados da banca
         char *titulo_banca = malloc(sizeof(titulo_banca));
         char *resumo = malloc(sizeof(resumo));
-        float horario;
+        double horario;
         char *local = malloc(sizeof(local));
        
         printf("""\n------------------------CADASTRAR---------------------------------\n""");  
 
         printf("Digite o nome do aluno: ");
-        //scanf("%s", aluno);
         fgets(aluno, 50, stdin);
         printf("\nDigite a matricula do aluno:");
         scanf("%d", &matricula);
@@ -176,7 +160,7 @@ void cadastrarEntrada(){
         printf("\nDigite o nome do orientador: ");
         scanf("%s", orientador);
         printf("\nDigite frequencia: ");
-        scanf("%f", &frequencia);
+        scanf("%lf", &frequencia);
         printf("\nDigite o nome dos avaliadores: ");
         scanf("%s", avaliadores);
         printf("\nDigite a instituicao: ");
@@ -188,11 +172,12 @@ void cadastrarEntrada(){
         printf("\nDigite o resumo: ");
         scanf("%s", resumo);
         printf("\nDigite o horario: ");
-        scanf("%f", &horario);
+        scanf("%lf", &horario);
         printf("\nDigite o local: ");
         scanf("%s", local);
 
         cadastrar(aluno, matricula, curso, email_aluno, orientador, frequencia, avaliadores, instituicao, email_avaliador, titulo_banca, resumo, horario, local, 0);
+        printf("Banca cadastrada com sucesso!");
 }
 
 void imprimir(){
@@ -379,11 +364,11 @@ void atualizar(){ //Segmentation fault
 }
 
 int main(){  
-    
-  int x = 1;
+
+    int x = 1;
     while(x==1){
         int menu;
-        printf("\n---------------------------MENU | CRUD---------------------------\n");
+        printf("\n--------------------------- MENU | CRUD ---------------------------\n");
         printf("\nPara cadastrar uma banca, digite: 1"); //funcao que possa continuar cadastrando loop, no caso retornar menu
         printf("\nPara exibir as bancas cadastradas, digite: 2");
         printf("\nPara remover uma banca cadastrada, digite: 3");
@@ -401,6 +386,7 @@ int main(){
         }
     }
     salvar();
+    
 
     return 0;
 }
