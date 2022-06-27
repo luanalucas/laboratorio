@@ -73,6 +73,7 @@ void salvar(){
 }
 
 
+
 void cadastrar(char *aluno, int matricula, char *curso, char *email_aluno, char *orientador, double frequencia, char *avaliadores,
 char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, double horario, char *local, int pos){
 
@@ -129,52 +130,52 @@ char *instituicao, char *email_avaliador, char *titulo_banca, char *resumo, doub
 
 void cadastrarEntrada(){
    
-        char *aluno = malloc(sizeof(aluno));
+        char *aluno = malloc(sizeof(aluno)*50);
         int matricula;
-        char *curso = malloc(sizeof(curso));
-        char *email_aluno = malloc(sizeof(email_aluno));
+        char *curso = malloc(sizeof(curso)*50);
+        char *email_aluno = malloc(sizeof(email_aluno)*50);
         //orientador nome
-        char *orientador = malloc(sizeof(orientador));
+        char *orientador = malloc(sizeof(orientador)*50);
         //frequencia
         double frequencia;
         //dados avaliadores
-        char *avaliadores = malloc(sizeof(avaliadores));
-        char *instituicao = malloc(sizeof(instituicao));
-        char *email_avaliador = malloc(sizeof(email_avaliador));
+        char *avaliadores = malloc(sizeof(avaliadores)*50);
+        char *instituicao = malloc(sizeof(instituicao)*50);
+        char *email_avaliador = malloc(sizeof(email_avaliador)*50);
         //dados da banca
-        char *titulo_banca = malloc(sizeof(titulo_banca));
-        char *resumo = malloc(sizeof(resumo));
+        char *titulo_banca = malloc(sizeof(titulo_banca)*50);
+        char *resumo = malloc(sizeof(resumo)*50);
         double horario;
-        char *local = malloc(sizeof(local));
+        char *local = malloc(sizeof(local)*50);
        
         printf("""\n------------------------CADASTRAR---------------------------------\n""");  
 
         printf("Digite o nome do aluno: ");
-        scanf("%s", aluno);
+        fgets(aluno, 50, stdin);
         printf("\nDigite a matricula do aluno:");
         scanf("%d", &matricula);
         printf("\nDigite o curso do aluno: ");
-        scanf("%s", curso);
+        fgets(curso, 50, stdin);
         printf("\nDigite o e-mail do aluno: ");
-        scanf("%s", email_aluno);
+        fgets(email_aluno, 50, stdin);
         printf("\nDigite o nome do orientador: ");
-        scanf("%s", orientador);
+        fgets(orientador, 50, stdin);
         printf("\nDigite frequencia: ");
-        scanf("%lf", &frequencia);
+        fgets(frequencia, 50, stdin);
         printf("\nDigite o nome dos avaliadores: ");
-        scanf("%s", avaliadores);
+        fgets(avaliadores, 50, stdin);
         printf("\nDigite a instituicao: ");
-        scanf("%s", instituicao);
+        fgets(instituicao, 50, stdin);
         printf("\nDigite o e-mail para contato: ");
-        scanf("%s", email_avaliador);
+        fgets(email_avaliador, 50, stdin);
         printf("\nDigite o título da banca: ");
-        scanf("%s", titulo_banca);
+        fgets(titulo_banca, 50, stdin);
         printf("\nDigite o resumo: ");
-        scanf("%s", resumo);
+        fgets(resumo, 50, stdin);
         printf("\nDigite o horario: ");
         scanf("%lf", &horario);
         printf("\nDigite o local: ");
-        scanf("%s", local);
+        fgets(local, 50, stdin);
 
         cadastrar(aluno, matricula, curso, email_aluno, orientador, frequencia, avaliadores, instituicao, email_avaliador, titulo_banca, resumo, horario, local, 0);
         printf("Banca cadastrada com sucesso!");
