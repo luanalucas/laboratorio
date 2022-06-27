@@ -161,7 +161,7 @@ void cadastrarEntrada(){
         printf("\nDigite o nome do orientador: ");
         fgets(orientador, 50, stdin);
         printf("\nDigite frequencia: ");
-        fgets(frequencia, 50, stdin);
+        scanf("%lf", &horario);
         printf("\nDigite o nome dos avaliadores: ");
         fgets(avaliadores, 50, stdin);
         printf("\nDigite a instituicao: ");
