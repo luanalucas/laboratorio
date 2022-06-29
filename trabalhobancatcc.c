@@ -153,7 +153,7 @@ void cadastrarEntrada(){
         printf("Digite o nome do aluno: ");
         fgets(aluno, 50, stdin);
         printf("\nDigite a matricula do aluno:");
-        scanf("%d", &matricula);
+        scanf("%d%*c", & matricula);
         printf("\nDigite o curso do aluno: ");
         fgets(curso, 50, stdin);
         printf("\nDigite o e-mail do aluno: ");
@@ -161,7 +161,7 @@ void cadastrarEntrada(){
         printf("\nDigite o nome do orientador: ");
         fgets(orientador, 50, stdin);
         printf("\nDigite frequencia: ");
-        scanf("%lf", &horario);
+        scanf("%lf%*c", & frequencia);
         printf("\nDigite o nome dos avaliadores: ");
         fgets(avaliadores, 50, stdin);
         printf("\nDigite a instituicao: ");
@@ -173,7 +173,7 @@ void cadastrarEntrada(){
         printf("\nDigite o resumo: ");
         fgets(resumo, 50, stdin);
         printf("\nDigite o horario: ");
-        scanf("%lf", &horario);
+        scanf("%lf%*c", & horario);
         printf("\nDigite o local: ");
         fgets(local, 50, stdin);
 
